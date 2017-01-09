@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                 android:id="@+id/img_search"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/ic_main" />
 
             <TextView
                 android:id="@+id/text_search"
@@ -63,7 +64,7 @@
                 android:id="@+id/img_music"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/ic_music" />
 
             <TextView
                 android:id="@+id/text_music"
@@ -85,7 +86,7 @@
                 android:id="@+id/img_car"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/ic_car" />
 
             <TextView
                 android:id="@+id/text_car"
@@ -107,7 +108,7 @@
                 android:id="@+id/img_setting"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/ic_setting" />
 
             <TextView
                 android:id="@+id/text_setting"

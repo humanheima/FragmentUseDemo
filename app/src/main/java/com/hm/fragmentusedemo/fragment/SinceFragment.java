@@ -30,12 +30,22 @@ public class SinceFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    /**
+     * 这个方法会被 viewPager 的 adapter触发
+     *
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         Log.e(tag, "setUserVisibleHint isVisibleToUser =" + isVisibleToUser);
     }
 
+    /**
+     * 这个方法会在fragmentTransaction hide 或者 show 的时候触发
+     *
+     * @param hidden
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);

@@ -2,8 +2,10 @@ package com.hm.fragmentusedemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -11,150 +13,139 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.hm.fragmentusedemo.fragment.BaseFragment;
 import com.hm.fragmentusedemo.fragment.CarFragment;
 import com.hm.fragmentusedemo.fragment.MusicFragment;
 import com.hm.fragmentusedemo.fragment.SearchFragment;
 import com.hm.fragmentusedemo.fragment.SettingFragment;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int HOME = 0;
+    private static final int MUSIC = 1;
+    private static final int CAR = 2;
+    private static final int SETTING = 3;
+
     @BindView(R.id.frame_layout)
     FrameLayout frameLayout;
     @BindView(R.id.activity_main)
     RelativeLayout activityMain;
-    @BindView(R.id.img_search)
-    ImageView imgSearch;
-    @BindView(R.id.text_search)
-    TextView textSearch;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
-    @BindView(R.id.img_music)
-    ImageView imgMusic;
-    @BindView(R.id.text_music)
-    TextView textMusic;
     @BindView(R.id.ll_music)
     LinearLayout llMusic;
-    @BindView(R.id.img_car)
-    ImageView imgCar;
-    @BindView(R.id.text_car)
-    TextView textCar;
     @BindView(R.id.ll_car)
     LinearLayout llCar;
-    @BindView(R.id.img_setting)
-    ImageView imgSetting;
-    @BindView(R.id.text_setting)
-    TextView textSetting;
     @BindView(R.id.ll_setting)
     LinearLayout llSetting;
     @BindView(R.id.ll_bottom)
     LinearLayout llBottom;
+    @BindViews({R.id.img_search, R.id.img_music, R.id.img_car, R.id.img_setting})
+    List<ImageView> imgTabMap;
+    @BindViews({R.id.text_search, R.id.text_music, R.id.text_car, R.id.text_setting})
+    List<TextView> textTabList;
     private SearchFragment searchFragment;
     private MusicFragment musicFragment;
     private CarFragment carFragment;
     private SettingFragment settingFragment;
-
-    private BaseFragment currentFragment;
+    private SparseArray<Integer> sparseArrayNormal = new SparseArray();
+    private SparseArray<Integer> sparseArrayPressed = new SparseArray();
+    private SparseArray<Fragment> fragmentTabMap = new SparseArray<>();
+    private int preFrag = -1;
+    private int nowFrag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initData();
+        initIcon();
         initListener();
+        changeTab();
     }
 
-    private void initData() {
-        if (searchFragment == null) {
-            searchFragment = new SearchFragment();
-            if (!searchFragment.isAdded()) {
-                // 提交事务
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, searchFragment).commit();
-                // 记录当前Fragment
-                currentFragment = searchFragment;
-            }
-        }
+    private void initIcon() {
+        sparseArrayNormal.put(HOME, R.drawable.ic_main);
+        sparseArrayNormal.put(MUSIC, R.drawable.ic_music);
+        sparseArrayNormal.put(CAR, R.drawable.ic_car);
+        sparseArrayNormal.put(SETTING, R.drawable.ic_setting);
+
+        sparseArrayPressed.put(HOME, R.drawable.ic_main_pressed);
+        sparseArrayPressed.put(MUSIC, R.drawable.ic_music_pressed);
+        sparseArrayPressed.put(CAR, R.drawable.ic_car_pressed);
+        sparseArrayPressed.put(SETTING, R.drawable.ic_setting_pressed);
     }
 
     private void initListener() {
-        llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickSearchLayout();
-            }
-        });
-        llMusic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickMusicLayout();
-            }
-        });
-        llCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCarLayout();
-            }
-        });
-        llSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickSettingLayout();
-            }
-        });
+        llSearch.setOnClickListener(new TabClickListener(HOME));
+        llMusic.setOnClickListener(new TabClickListener(MUSIC));
+        llCar.setOnClickListener(new TabClickListener(CAR));
+        llSetting.setOnClickListener(new TabClickListener(SETTING));
     }
 
-    private void clickSearchLayout() {
-        if (searchFragment == null) {
-            searchFragment = new SearchFragment();
+    private void changeTab() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (preFrag != -1) {
+            imgTabMap.get(preFrag).setImageResource(sparseArrayNormal.get(preFrag));
+            textTabList.get(preFrag).setTextColor(getResources().getColor(R.color.colorPrimary));
+            fragmentTransaction.hide(fragmentTabMap.get(preFrag));
         }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), searchFragment);
-    }
+        imgTabMap.get(nowFrag).setImageResource(sparseArrayPressed.get(nowFrag));
+        textTabList.get(nowFrag).setTextColor(getResources().getColor(R.color.colorAccent));
 
-    private void clickMusicLayout() {
-        if (musicFragment == null) {
-            musicFragment = new MusicFragment();
-        }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), musicFragment);
-    }
-
-    private void clickCarLayout() {
-        if (carFragment == null) {
-            carFragment = new CarFragment();
-        }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), carFragment);
-    }
-
-    private void clickSettingLayout() {
-        if (settingFragment == null) {
-            settingFragment = new SettingFragment();
-        }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), settingFragment);
-    }
-
-
-    /**
-     * 添加或者显示 fragment
-     *
-     * @param transaction
-     * @param fragment
-     */
-    private void addOrShowFragment(FragmentTransaction transaction, Fragment fragment) {
-        if (currentFragment == fragment)
-            return;
-        if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            transaction.hide(currentFragment).add(R.id.frame_layout, fragment).commit();
+        if (fragmentTabMap.get(nowFrag) == null) {
+            switch (nowFrag) {
+                case HOME:
+                    searchFragment = new SearchFragment();
+                    fragmentTabMap.put(HOME, searchFragment);
+                    fragmentTransaction.add(R.id.frame_layout, searchFragment);
+                    break;
+                case MUSIC:
+                    musicFragment = new MusicFragment();
+                    fragmentTabMap.put(MUSIC, musicFragment);
+                    fragmentTransaction.add(R.id.frame_layout, musicFragment);
+                    break;
+                case CAR:
+                    carFragment = new CarFragment();
+                    fragmentTabMap.put(CAR, carFragment);
+                    fragmentTransaction.add(R.id.frame_layout, carFragment);
+                    break;
+                case SETTING:
+                    settingFragment = new SettingFragment();
+                    fragmentTabMap.put(SETTING, settingFragment);
+                    fragmentTransaction.add(R.id.frame_layout, settingFragment);
+                    break;
+                default:
+                    break;
+            }
         } else {
-            transaction.hide(currentFragment).show(fragment).commit();
+            fragmentTransaction.show(fragmentTabMap.get(nowFrag));
         }
-        currentFragment.setUserVisibleHint(false);
+        fragmentTransaction.commit();
+    }
 
-        currentFragment = (BaseFragment) fragment;
+    private class TabClickListener implements View.OnClickListener {
 
-        currentFragment.setUserVisibleHint(true);
+        private int position;
+
+        public TabClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (position != nowFrag) {
+                preFrag = nowFrag;
+                nowFrag = position;
+                changeTab();
+            }
+        }
     }
 }
