@@ -1,4 +1,4 @@
-package com.hm.fragmentusedemo;
+package com.hm.fragmentusedemo.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hm.fragmentusedemo.R;
 import com.hm.fragmentusedemo.fragment.CarFragment;
 import com.hm.fragmentusedemo.fragment.MusicFragment;
 import com.hm.fragmentusedemo.fragment.SearchFragment;

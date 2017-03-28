@@ -110,6 +110,5 @@
                 android:text="设置" />
         </LinearLayout>
 
-
     </LinearLayout>
 </RelativeLayout>
