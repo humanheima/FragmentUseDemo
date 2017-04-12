@@ -102,8 +102,4 @@ public class ModuMainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(fragmentList.size() * 1000);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-
-    }
 }

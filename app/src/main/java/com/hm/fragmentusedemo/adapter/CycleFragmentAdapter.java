@@ -2,7 +2,7 @@ package com.hm.fragmentusedemo.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -10,7 +10,7 @@ import com.hm.fragmentusedemo.fragment.BaseFragment;
 
 import java.util.List;
 
-public class CycleFragmentAdapter extends FragmentStatePagerAdapter {
+public class CycleFragmentAdapter extends FragmentPagerAdapter {
 
     private static final String TAG = "CycleFragmentAdapter";
     private List<BaseFragment> mList;
@@ -36,7 +36,6 @@ public class CycleFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        Log.e(TAG, "instantiateItem position=" + position);
         position = position % mList.size();
         Log.e(TAG, "instantiateItem position % mList.size()=" + position);
         return super.instantiateItem(container, position);
