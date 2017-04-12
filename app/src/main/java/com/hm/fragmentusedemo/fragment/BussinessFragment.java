@@ -59,11 +59,13 @@ public class BussinessFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        boolean b = savedInstanceState == null;
         Log.e(tag, "onCreateView");
+        Log.e(tag, "savedInstanceState==null" + b);
         View view = inflater.inflate(R.layout.fragment_bussiness, container, false);
         ButterKnife.bind(this, view);
         isViewCreated = true;
+        textBusiness.setText("我的创业");
         return view;
     }
 

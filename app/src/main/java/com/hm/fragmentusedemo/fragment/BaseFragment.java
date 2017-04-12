@@ -21,7 +21,7 @@ public abstract class BaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            lazyLoadData();
+            //lazyLoadData();
         }
     }
 
@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (getUserVisibleHint()) {
             Log.e("BaseFragment", "onActivityCreated lazyLoadData");
-            lazyLoadData();
+            //lazyLoadData();
         }
     }
 

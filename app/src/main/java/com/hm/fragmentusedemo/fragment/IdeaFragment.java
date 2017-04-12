@@ -56,20 +56,24 @@ public class IdeaFragment extends BaseFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e(tag, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_idea, container, false);
         ButterKnife.bind(this, view);
         isViewCreated = true;
+        textIdea.setText("我的想法");
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("someVarB", "onSaveInstanceState 我的想法");
     }
 
     @Override
     protected void lazyLoadData() {
         if (isViewCreated) {
-            Log.e(tag,"lazyLoadData");
+            Log.e(tag, "lazyLoadData");
             textIdea.setText("我的想法");
         }
     }

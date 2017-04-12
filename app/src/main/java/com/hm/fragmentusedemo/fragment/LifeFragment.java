@@ -57,10 +57,13 @@ public class LifeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        boolean b = savedInstanceState == null;
         Log.e(tag, "onCreateView");
+        Log.e(tag, "savedInstanceState==null" + b);
         View view = inflater.inflate(R.layout.fragment_life, container, false);
         ButterKnife.bind(this, view);
         isViewCreated = true;
+        textLife.setText("我的生活");
         return view;
     }
 

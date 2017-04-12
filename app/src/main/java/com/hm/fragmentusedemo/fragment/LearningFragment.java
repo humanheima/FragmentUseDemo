@@ -56,11 +56,13 @@ public class LearningFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        boolean b = savedInstanceState == null;
         Log.e(tag, "onCreateView");
+        Log.e(tag, "savedInstanceState==null" + b);
         View view = inflater.inflate(R.layout.fragment_learning, container, false);
         ButterKnife.bind(this, view);
         isViewCreated = true;
+        textLearn.setText("我的学习");
         return view;
     }
 

@@ -67,10 +67,13 @@ public class SinceFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        boolean b = savedInstanceState == null;
+        Log.e(tag, "savedInstanceState==null" + b);
         Log.e(tag, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_since, container, false);
         ButterKnife.bind(this, view);
         isViewCreated = true;
+        textSince.setText("我的科技界面");
         return view;
     }
 
