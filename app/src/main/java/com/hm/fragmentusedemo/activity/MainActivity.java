@@ -1,12 +1,16 @@
 package com.hm.fragmentusedemo.activity;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +29,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int HOME = 0;
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private SparseArray<Fragment> fragmentTabMap = new SparseArray<>();
     private int preFrag = -1;
     private int nowFrag = 0;
+    private View activityRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         initIcon();
         initListener();
         changeTab();
+        activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     private void initIcon() {
@@ -130,6 +137,41 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.show(fragmentTabMap.get(nowFrag));
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        if (isKeyboardShown(activityRootView)) {
+            Log.e(TAG, "软键盘弹起");
+            llBottom.setVisibility(View.GONE);
+        } else {
+            llBottom.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    llBottom.setVisibility(View.VISIBLE);
+
+                }
+            }, 300);
+            Log.e(TAG, "软键盘弹起关闭");
+        }
+    }
+
+    private boolean isKeyboardShown(View rootView) {
+        DisplayMetrics dm = rootView.getResources().getDisplayMetrics();
+        //设定一个认为是软键盘弹起的阈值
+        final int softKeyboardHeight = (int) (100 * dm.density);
+        //得到屏幕可见区域的大小
+        Rect r = new Rect();
+        rootView.getWindowVisibleDisplayFrame(r);
+        int heightDiff = dm.heightPixels - r.bottom;
+        Log.e(TAG, "isKeyboardShown: " + dm.heightPixels + "," + r.bottom);
+        return heightDiff > softKeyboardHeight;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        activityRootView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
     }
 
     private class TabClickListener implements View.OnClickListener {

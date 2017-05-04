@@ -1,13 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hm.fragmentusedemo.fragment.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="设置界面" />
+        android:layout_height="40dp"/>
+
+    <Button
+        android:id="@+id/btn_pop_window"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        android:text="弹出popWindow"
+        android:textAllCaps="false"/>
+
 
 </FrameLayout>
