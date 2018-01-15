@@ -6,17 +6,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import com.hm.fragmentusedemo.fragment.BaseFragment;
-
 import java.util.List;
 
 public class CycleFragmentAdapter extends FragmentPagerAdapter {
 
     private static final String TAG = "CycleFragmentAdapter";
-    private List<BaseFragment> mList;
+    private List<Fragment> mList;
 
 
-    public CycleFragmentAdapter(FragmentManager fm, List<BaseFragment> list) {
+    public CycleFragmentAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         mList = list;
     }

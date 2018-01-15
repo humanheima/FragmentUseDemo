@@ -1,7 +1,6 @@
 package com.hm.fragmentusedemo.activity;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hm.fragmentusedemo.R;
@@ -11,7 +10,6 @@ import com.hm.fragmentusedemo.R;
  */
 public class ViewPagerActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

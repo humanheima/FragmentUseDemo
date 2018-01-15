@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int HOME = 0;
+    private static final int SEARCH = 0;
     private static final int MUSIC = 1;
     private static final int CAR = 2;
     private static final int SETTING = 3;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
     List<ImageView> imgTabMap;
     @BindViews({R.id.text_search, R.id.text_music, R.id.text_car, R.id.text_setting})
     List<TextView> textTabList;
+    //private HomeFragment homeFragment;
     private SearchFragment searchFragment;
     private MusicFragment musicFragment;
     private CarFragment carFragment;
@@ -79,19 +80,19 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
     }
 
     private void initIcon() {
-        sparseArrayNormal.put(HOME, R.drawable.ic_main);
+        sparseArrayNormal.put(SEARCH, R.drawable.ic_main);
         sparseArrayNormal.put(MUSIC, R.drawable.ic_music);
         sparseArrayNormal.put(CAR, R.drawable.ic_car);
         sparseArrayNormal.put(SETTING, R.drawable.ic_setting);
 
-        sparseArrayPressed.put(HOME, R.drawable.ic_main_pressed);
+        sparseArrayPressed.put(SEARCH, R.drawable.ic_main_pressed);
         sparseArrayPressed.put(MUSIC, R.drawable.ic_music_pressed);
         sparseArrayPressed.put(CAR, R.drawable.ic_car_pressed);
         sparseArrayPressed.put(SETTING, R.drawable.ic_setting_pressed);
     }
 
     private void initListener() {
-        llSearch.setOnClickListener(new TabClickListener(HOME));
+        llSearch.setOnClickListener(new TabClickListener(SEARCH));
         llMusic.setOnClickListener(new TabClickListener(MUSIC));
         llCar.setOnClickListener(new TabClickListener(CAR));
         llSetting.setOnClickListener(new TabClickListener(SETTING));
@@ -110,9 +111,9 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
 
         if (fragmentTabMap.get(nowFrag) == null) {
             switch (nowFrag) {
-                case HOME:
+                case SEARCH:
                     searchFragment = new SearchFragment();
-                    fragmentTabMap.put(HOME, searchFragment);
+                    fragmentTabMap.put(SEARCH, searchFragment);
                     fragmentTransaction.add(R.id.frame_layout, searchFragment);
                     break;
                 case MUSIC:

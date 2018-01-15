@@ -1,6 +1,7 @@
 package com.hm.fragmentusedemo.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,7 @@ public class ModuMainActivity extends AppCompatActivity {
     RelativeLayout rlMenu;
     private String tag = getClass().getSimpleName();
     private CycleFragmentAdapter adapter;
-    private List<BaseFragment> fragmentList;
+    private List<Fragment> fragmentList;
 
     private BaseFragment sinceFragment;
     private BaseFragment LifeFragment;

@@ -1,4 +1,4 @@
-package com.hm.fragmentusedemo.adapter;
+package com.hm.fragmentusedemo.testloop;
 
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ import java.util.List;
 public class LoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
     private final String TAG = "LoopPageAdapter";
-
+    
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
@@ -58,7 +58,6 @@ public class LoopPageAdapter extends PagerAdapter implements ViewPager.OnPageCha
 
     /**
      * TODO setCurrentItem只能增大
-     *
      * @param position
      */
     public void setCurrentItem(int position) {
@@ -88,9 +87,7 @@ public class LoopPageAdapter extends PagerAdapter implements ViewPager.OnPageCha
             mCurTransaction.attach(fragment);
         } else {
             fragment = getItem(position);
-            if (!fragment.isAdded()) {
-                mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), itemId));
-            }
+            mCurTransaction.add(container.getId(), fragment, name);
         }
         if (fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
@@ -131,7 +128,7 @@ public class LoopPageAdapter extends PagerAdapter implements ViewPager.OnPageCha
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return ((Fragment) object).getView() == view;
+        return ((Fragment)object).getView() == view;
     }
 
     @Override
@@ -160,7 +157,7 @@ public class LoopPageAdapter extends PagerAdapter implements ViewPager.OnPageCha
     public void onPageSelected(int position) {
         nowSelect = position;
         if (onPageSelectd != null) {
-            onPageSelectd.onPageSelected(position % fragmentList.size());
+            onPageSelectd.onPageSelected(position % fragmentSize);
         }
     }
 

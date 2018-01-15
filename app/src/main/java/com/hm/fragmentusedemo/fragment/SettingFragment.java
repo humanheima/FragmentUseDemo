@@ -126,6 +126,7 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.e(TAG, "onDestroyView");
         unbinder.unbind();
     }
 

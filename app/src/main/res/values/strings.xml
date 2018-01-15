@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">FragmentUseDemo</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_pager_with_fragment">ViewPagerWithFragmentActivity</string>
+    <string name="lazy_load">演示懒加载</string>
+    <string name="load_all">已加载全部数据</string>
 </resources>
