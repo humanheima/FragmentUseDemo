@@ -20,9 +20,6 @@ import com.hm.fragmentusedemo.fragment.SettingFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * ViewPager 懒加载
- */
 public class ViewPagerWithFragmentActivity extends AppCompatActivity {
 
     @BindView(R.id.frame_layout)

@@ -11,18 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".modu.ModuActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.ViewPagerWithFragmentActivity"/>
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity android:name=".activity.ViewPagerWithFragmentActivity" />
         <activity android:name=".simple.SimpleActivity" />
         <activity android:name=".simple.AnotherActivity" />
         <activity
             android:name=".activity.ModuMainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ViewPagerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".viewpager.ViewPagerPagerAdapterActivity"
             android:screenOrientation="portrait" />

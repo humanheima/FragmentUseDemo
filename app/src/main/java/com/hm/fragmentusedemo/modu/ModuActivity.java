@@ -1,5 +1,7 @@
-package com.hm.fragmentusedemo.activity;
+package com.hm.fragmentusedemo.modu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,18 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.fragmentusedemo.R;
 import com.hm.fragmentusedemo.fragment.CarFragment;
 import com.hm.fragmentusedemo.fragment.MusicFragment;
-import com.hm.fragmentusedemo.fragment.SearchFragment;
 import com.hm.fragmentusedemo.fragment.SettingFragment;
 
 import java.util.List;
@@ -29,18 +29,17 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener {
+/**
+ * fake 魔都行囊主界面
+ */
+public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int SEARCH = 0;
+    private static final String TAG = ModuActivity.class.getSimpleName();
+    private static final int HOME = 0;
     private static final int MUSIC = 1;
     private static final int CAR = 2;
     private static final int SETTING = 3;
 
-    @BindView(R.id.frame_layout)
-    FrameLayout frameLayout;
-    @BindView(R.id.activity_main)
-    RelativeLayout activityMain;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
     @BindView(R.id.ll_music)
@@ -55,17 +54,17 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
     List<ImageView> imgTabMap;
     @BindViews({R.id.text_search, R.id.text_music, R.id.text_car, R.id.text_setting})
     List<TextView> textTabList;
-    //private HomeFragment homeFragment;
-    private SearchFragment searchFragment;
-    private MusicFragment musicFragment;
-    private CarFragment carFragment;
-    private SettingFragment settingFragment;
-    private SparseArray<Integer> sparseArrayNormal = new SparseArray();
-    private SparseArray<Integer> sparseArrayPressed = new SparseArray();
-    private SparseArray<Fragment> fragmentTabMap = new SparseArray<>();
+    private SparseIntArray sparseArrayNormal = new SparseIntArray(4);
+    private SparseIntArray sparseArrayPressed = new SparseIntArray(4);
+    private SparseArray<Fragment> fragmentTabMap = new SparseArray<>(4);
     private int preFrag = -1;
     private int nowFrag = 0;
     private View activityRootView;
+
+    public static void launch(Context context) {
+        Intent intent = new Intent(context, ModuActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,19 +79,19 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
     }
 
     private void initIcon() {
-        sparseArrayNormal.put(SEARCH, R.drawable.ic_main);
+        sparseArrayNormal.put(HOME, R.drawable.ic_main);
         sparseArrayNormal.put(MUSIC, R.drawable.ic_music);
         sparseArrayNormal.put(CAR, R.drawable.ic_car);
         sparseArrayNormal.put(SETTING, R.drawable.ic_setting);
 
-        sparseArrayPressed.put(SEARCH, R.drawable.ic_main_pressed);
+        sparseArrayPressed.put(HOME, R.drawable.ic_main_pressed);
         sparseArrayPressed.put(MUSIC, R.drawable.ic_music_pressed);
         sparseArrayPressed.put(CAR, R.drawable.ic_car_pressed);
         sparseArrayPressed.put(SETTING, R.drawable.ic_setting_pressed);
     }
 
     private void initListener() {
-        llSearch.setOnClickListener(new TabClickListener(SEARCH));
+        llSearch.setOnClickListener(new TabClickListener(HOME));
         llMusic.setOnClickListener(new TabClickListener(MUSIC));
         llCar.setOnClickListener(new TabClickListener(CAR));
         llSetting.setOnClickListener(new TabClickListener(SETTING));
@@ -111,23 +110,23 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
 
         if (fragmentTabMap.get(nowFrag) == null) {
             switch (nowFrag) {
-                case SEARCH:
-                    searchFragment = new SearchFragment();
-                    fragmentTabMap.put(SEARCH, searchFragment);
-                    fragmentTransaction.add(R.id.frame_layout, searchFragment);
+                case HOME:
+                    HomeFragment homeFragment = new HomeFragment();
+                    fragmentTabMap.put(HOME, homeFragment);
+                    fragmentTransaction.add(R.id.frame_layout, homeFragment);
                     break;
                 case MUSIC:
-                    musicFragment = new MusicFragment();
+                    MusicFragment musicFragment = new MusicFragment();
                     fragmentTabMap.put(MUSIC, musicFragment);
                     fragmentTransaction.add(R.id.frame_layout, musicFragment);
                     break;
                 case CAR:
-                    carFragment = new CarFragment();
+                    CarFragment carFragment = new CarFragment();
                     fragmentTabMap.put(CAR, carFragment);
                     fragmentTransaction.add(R.id.frame_layout, carFragment);
                     break;
                 case SETTING:
-                    settingFragment = new SettingFragment();
+                    SettingFragment settingFragment = new SettingFragment();
                     fragmentTabMap.put(SETTING, settingFragment);
                     fragmentTransaction.add(R.id.frame_layout, settingFragment);
                     break;
@@ -150,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
                 @Override
                 public void run() {
                     llBottom.setVisibility(View.VISIBLE);
-
                 }
             }, 300);
             Log.e(TAG, "软键盘弹起关闭");

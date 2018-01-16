@@ -1,4 +1,4 @@
-package com.hm.fragmentusedemo.testloop;
+package com.hm.fragmentusedemo.modu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,27 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by dumingwei on 2017/6/28.
  */
 public abstract class MyBaseFragment extends Fragment {
 
-    private static final String TAG = "MyBaseFragment";
-    private Unbinder unbinder;
+    protected String TAG = getClass().getSimpleName();
+    protected View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.e(TAG, "MyBaseFragment onCreateView: ");
-        View rootView = LayoutInflater.from(container.getContext()).inflate(bindLayout(), null);
-        unbinder = ButterKnife.bind(this, rootView);
-
-        initData();
-        bindEvent();
-
+        if (null == rootView) {
+            Log.e(TAG, "onCreateView: ");
+            rootView = LayoutInflater.from(container.getContext()).inflate(bindLayout(), null);
+            ButterKnife.bind(this, rootView);
+            initData();
+            bindEvent();
+        }
         return rootView;
     }
 
@@ -50,14 +49,6 @@ public abstract class MyBaseFragment extends Fragment {
      */
     protected void bindEvent() {
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
     }
 
 }

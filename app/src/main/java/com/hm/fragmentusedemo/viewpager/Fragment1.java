@@ -29,4 +29,9 @@ public class Fragment1 extends Fragment {
         });
         return view;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

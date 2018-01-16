@@ -1,4 +1,4 @@
-package com.hm.fragmentusedemo.adapter;
+package com.hm.fragmentusedemo.modu;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

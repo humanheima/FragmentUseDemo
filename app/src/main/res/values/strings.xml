@@ -5,4 +5,10 @@
     <string name="title_activity_view_pager_with_fragment">ViewPagerWithFragmentActivity</string>
     <string name="lazy_load">演示懒加载</string>
     <string name="load_all">已加载全部数据</string>
+    <string name="modu_main">fake魔都行囊主界面</string>
+    <string name="search">搜索</string>
+    <string name="home">home</string>
+    <string name="music">音乐</string>
+    <string name="car">汽车</string>
+    <string name="setting">设置</string>
 </resources>

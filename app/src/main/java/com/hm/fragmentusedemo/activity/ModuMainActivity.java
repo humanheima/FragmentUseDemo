@@ -1,5 +1,7 @@
 package com.hm.fragmentusedemo.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,9 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.fragmentusedemo.R;
-import com.hm.fragmentusedemo.adapter.CycleFragmentAdapter;
+import com.hm.fragmentusedemo.modu.CycleFragmentAdapter;
 import com.hm.fragmentusedemo.fragment.BaseFragment;
-import com.hm.fragmentusedemo.fragment.BussinessFragment;
+import com.hm.fragmentusedemo.fragment.BusinessFragment;
 import com.hm.fragmentusedemo.fragment.IdeaFragment;
 import com.hm.fragmentusedemo.fragment.LearningFragment;
 import com.hm.fragmentusedemo.fragment.LifeFragment;
@@ -57,6 +59,11 @@ public class ModuMainActivity extends AppCompatActivity {
     private BaseFragment ideaFragment;
     private List<String> mPlanetTitles;
 
+    public static void launch(Context context) {
+        Intent intent = new Intent(context, ModuMainActivity.class);
+        context.startActivity(intent);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +97,7 @@ public class ModuMainActivity extends AppCompatActivity {
         sinceFragment = new SinceFragment();
         LifeFragment = new LifeFragment();
         learningFragment = new LearningFragment();
-        bussinessFragment = new BussinessFragment();
+        bussinessFragment = new BusinessFragment();
         ideaFragment = new IdeaFragment();
 
         fragmentList.add(sinceFragment);

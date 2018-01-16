@@ -16,15 +16,11 @@ import com.hm.fragmentusedemo.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class BussinessFragment extends BaseFragment {
+public class BusinessFragment extends BaseFragment {
 
     @BindView(R.id.text_business)
     TextView textBusiness;
     private String tag = getClass().getSimpleName();
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -51,7 +47,7 @@ public class BussinessFragment extends BaseFragment {
     }
 
 
-    public BussinessFragment() {
+    public BusinessFragment() {
         // Required empty public constructor
     }
 

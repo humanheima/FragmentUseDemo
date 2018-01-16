@@ -96,7 +96,7 @@ public class MainFragment extends BaseFragment {
         sinceFragment = new SinceFragment();
         LifeFragment = new LifeFragment();
         learningFragment = new LearningFragment();
-        bussinessFragment = new BussinessFragment();
+        bussinessFragment = new BusinessFragment();
         ideaFragment = new IdeaFragment();
 
         fragmentList.add(sinceFragment);
