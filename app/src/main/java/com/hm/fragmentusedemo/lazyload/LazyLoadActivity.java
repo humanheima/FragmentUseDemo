@@ -33,9 +33,9 @@ public class LazyLoadActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         fragments = new ArrayList<>();
         fragments.add(FirstLazyFragment.newInstance((1)));
-        fragments.add(SecondLazyFragment.newInstance((2)));
-        fragments.add(ThirdLazyFragment.newInstance((3)));
-        fragments.add(ForthLazyFragment.newInstance((4)));
+        fragments.add(FirstLazyFragment.newInstance((2)));
+        fragments.add(FirstLazyFragment.newInstance((3)));
+        fragments.add(FirstLazyFragment.newInstance((4)));
         viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
     }
 }

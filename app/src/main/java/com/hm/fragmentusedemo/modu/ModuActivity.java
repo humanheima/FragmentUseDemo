@@ -7,15 +7,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.fragmentusedemo.R;
@@ -23,6 +28,7 @@ import com.hm.fragmentusedemo.fragment.CarFragment;
 import com.hm.fragmentusedemo.fragment.MusicFragment;
 import com.hm.fragmentusedemo.fragment.SettingFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,6 +60,17 @@ public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.
     List<ImageView> imgTabMap;
     @BindViews({R.id.text_search, R.id.text_music, R.id.text_car, R.id.text_setting})
     List<TextView> textTabList;
+    @BindView(R.id.text_menu)
+    TextView textMenu;
+    @BindView(R.id.left_drawer)
+    ListView leftDrawer;
+    @BindView(R.id.rl_menu)
+    RelativeLayout rlMenu;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.image_title)
+    ImageView imageTitle;
+
     private SparseIntArray sparseArrayNormal = new SparseIntArray(4);
     private SparseIntArray sparseArrayPressed = new SparseIntArray(4);
     private SparseArray<Fragment> fragmentTabMap = new SparseArray<>(4);
@@ -69,11 +86,12 @@ public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_modu);
         ButterKnife.bind(this);
         initIcon();
         initListener();
         changeTab();
+        initDrawer();
         activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
@@ -137,6 +155,25 @@ public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.
             fragmentTransaction.show(fragmentTabMap.get(nowFrag));
         }
         fragmentTransaction.commit();
+    }
+
+    private void initDrawer() {
+        List<String> mPlanetTitles = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            mPlanetTitles.add("title" + i);
+        }
+        leftDrawer.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mPlanetTitles));
+        imageTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(Gravity.START)) {
+                    drawerLayout.closeDrawer(Gravity.START);
+                } else {
+                    drawerLayout.openDrawer(Gravity.START);
+                }
+            }
+        });
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override

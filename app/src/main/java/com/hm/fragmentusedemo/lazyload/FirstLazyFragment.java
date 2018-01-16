@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import butterknife.BindView;
 public class FirstLazyFragment extends BaseLazyFragment {
 
     public static final String ID = "ID";
-    protected String TAG = getClass().getSimpleName();
     @BindView(R.id.ptr_rv)
     PullToRefreshRecyclerView pullToRefreshRecyclerView;
     @BindView(R.id.tv_title)
@@ -55,42 +53,47 @@ public class FirstLazyFragment extends BaseLazyFragment {
     }
 
     @Override
-    protected int getLayout() {
+    protected int bindLayout() {
         return R.layout.fragment_lazy;
     }
 
     @Override
-    protected void init(View view) {
-        Log.e(TAG, "onCreateView init id=" + id);
+    protected void initData() {
+        Log.e(TAG, "onCreateView initData id=" + id);
         tvTitle.setText("fragment id is " + id);
         data = new ArrayList<>();
         rv = pullToRefreshRecyclerView.getRefreshableView();
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new NotifyAdapter(data);
         rv.setAdapter(adapter);
-        pullToRefreshRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getData();
-            }
-        });
     }
 
     @Override
-    protected void lazyLoadData() {
-        super.lazyLoadData();
-        Log.e(TAG, "lazyLoadData id=" + id);
-        getData();
-    }
-
-    private void getData() {
-        pullToRefreshRecyclerView.postDelayed(new Runnable() {
+    protected void bindEvent() {
+        pullToRefreshRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
             @Override
-            public void run() {
+            public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                pullToRefreshRecyclerView.onRefreshComplete();
+                pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
+                data.clear();
+                page = 1;
+                List<NotifyBean> tempList = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    NotifyBean notifyBean = new NotifyBean(System.currentTimeMillis() / 1000, "page" + page + "i=" + i);
+                    tempList.add(notifyBean);
+                }
+                data.addAll(tempList);
+                page++;
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 pullToRefreshRecyclerView.onRefreshComplete();
                 if (page <= 3) {
                     List<NotifyBean> tempList = new ArrayList<>();
-                    for (int i = 0; i < 10; i++) {
+                    int start = page * 10;
+                    for (int i = start; i < start + 10; i++) {
                         NotifyBean notifyBean = new NotifyBean(System.currentTimeMillis() / 1000, "page" + page + "i=" + i);
                         tempList.add(notifyBean);
                     }
@@ -99,9 +102,21 @@ public class FirstLazyFragment extends BaseLazyFragment {
                     adapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getContext(), getString(R.string.load_all), Toast.LENGTH_SHORT).show();
-                    pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.DISABLED);
+                    pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                 }
             }
-        }, 500);
+        });
     }
+
+    @Override
+    protected void lazyLoadData() {
+        super.lazyLoadData();
+        pullToRefreshRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pullToRefreshRecyclerView.setRefreshing();
+            }
+        }, 300);
+    }
+
 }

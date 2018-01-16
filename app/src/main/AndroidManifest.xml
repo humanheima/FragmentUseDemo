@@ -20,14 +20,9 @@
         <activity android:name=".simple.SimpleActivity" />
         <activity android:name=".simple.AnotherActivity" />
         <activity
-            android:name=".activity.ModuMainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity
             android:name=".viewpager.ViewPagerPagerAdapterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".demo.DemoActivity" />
+        <activity android:name=".simple.DemoActivity" />
         <activity android:name=".lazyload.LazyLoadActivity" />
         <activity android:name=".activity.StartActivity">
             <intent-filter>

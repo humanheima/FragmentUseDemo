@@ -36,7 +36,6 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.e(TAG, "isVisibleToUser=" + isVisibleToUser);
         //如果当前Fragment可见，onCreateView 已经调用完毕，并且没有加载过数据，则加载数据
         if (isVisibleToUser && isViewCreated && !isLoadDataCompleted) {
             lazyLoadData();
@@ -46,17 +45,16 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(getLayout(), container, false);
+            rootView = inflater.inflate(bindLayout(), container, false);
             ButterKnife.bind(this, rootView);
-            init(rootView);
-            //isViewCreated 置为 true
+            initData();
+            bindEvent();
             isViewCreated = true;
         }
         return rootView;
     }
 
     /**
-     *
      * 在这里要调用一次lazyLoadData ，因为ViewPage展示第一页的时候
      * setUserVisibleHint 先于 onCreateView调用，这时候 isViewCreated 为false，不会加载数据
      * onActivityCreated 在 onCreateView 之后调用，这时候视图已经初始化完毕 isViewCreated 为 true，
@@ -71,10 +69,15 @@ public abstract class BaseLazyFragment extends Fragment {
     }
 
     //获取布局文件
-    protected abstract int getLayout();
+    protected abstract int bindLayout();
 
     //初始化一些view和相关数据
-    protected abstract void init(View view);
+    protected abstract void initData();
+
+    //绑定事件
+    protected void bindEvent() {
+
+    }
 
     //加载数据
     protected void lazyLoadData() {

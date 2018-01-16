@@ -3,13 +3,13 @@ package com.hm.fragmentusedemo.modu;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 import com.hm.fragmentusedemo.R;
+import com.hm.fragmentusedemo.lazyload.BaseLazyFragment;
 import com.hm.fragmentusedemo.lazyload.NotifyAdapter;
 import com.hm.fragmentusedemo.lazyload.NotifyBean;
 
@@ -21,7 +21,7 @@ import butterknife.BindView;
 /**
  * Created by dumingwei on 2017/6/28.
  */
-public class NewsListFragment extends MyBaseFragment {
+public class NewsListFragment extends BaseLazyFragment {
 
     @BindView(R.id.text_view)
     TextView textView;
@@ -95,7 +95,11 @@ public class NewsListFragment extends MyBaseFragment {
                 }
             }
         });
+    }
 
+    @Override
+    protected void lazyLoadData() {
+        super.lazyLoadData();
         pullToRefreshRecyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {

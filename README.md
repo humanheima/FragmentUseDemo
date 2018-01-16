@@ -1,6 +1,6 @@
 # simpleuse 包下面是关于Fragment的基础知识
-# FragmentUseDemo 单独使用fragment,结合ViewPager 懒加载
-1. Fragment 的 setUserVisibleHint方法 只有该 Fragment 在 ViewPager 里才会被调用
-2. Fragment 的  setUserVisibleHint 的执行顺序又是在 onCreateView 之前
-
+# lazyload 包下是关于懒加载的例子
+相关博客
+ 
+http://blog.csdn.net/leilifengxingmw/article/details/79069504
 
