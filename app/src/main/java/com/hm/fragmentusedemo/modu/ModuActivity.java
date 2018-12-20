@@ -121,7 +121,7 @@ public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.
         if (preFrag != -1) {
             imgTabMap.get(preFrag).setImageResource(sparseArrayNormal.get(preFrag));
             textTabList.get(preFrag).setTextColor(getResources().getColor(R.color.colorPrimary));
-            fragmentTransaction.hide(fragmentTabMap.get(preFrag));
+            //fragmentTransaction.remove(fragmentTabMap.get(preFrag));
         }
         imgTabMap.get(nowFrag).setImageResource(sparseArrayPressed.get(nowFrag));
         textTabList.get(nowFrag).setTextColor(getResources().getColor(R.color.colorAccent));
@@ -131,29 +131,30 @@ public class ModuActivity extends AppCompatActivity implements ViewTreeObserver.
                 case HOME:
                     HomeFragment homeFragment = new HomeFragment();
                     fragmentTabMap.put(HOME, homeFragment);
-                    fragmentTransaction.add(R.id.frame_layout, homeFragment);
+                    fragmentTransaction.replace(R.id.frame_layout, homeFragment);
                     break;
                 case MUSIC:
                     MusicFragment musicFragment = new MusicFragment();
                     fragmentTabMap.put(MUSIC, musicFragment);
-                    fragmentTransaction.add(R.id.frame_layout, musicFragment);
+                    fragmentTransaction.replace(R.id.frame_layout, musicFragment);
                     break;
                 case CAR:
                     CarFragment carFragment = new CarFragment();
                     fragmentTabMap.put(CAR, carFragment);
-                    fragmentTransaction.add(R.id.frame_layout, carFragment);
+                    fragmentTransaction.replace(R.id.frame_layout, carFragment);
                     break;
                 case SETTING:
                     SettingFragment settingFragment = new SettingFragment();
                     fragmentTabMap.put(SETTING, settingFragment);
-                    fragmentTransaction.add(R.id.frame_layout, settingFragment);
+                    fragmentTransaction.replace(R.id.frame_layout, settingFragment);
                     break;
                 default:
                     break;
             }
         } else {
-            fragmentTransaction.show(fragmentTabMap.get(nowFrag));
+            fragmentTransaction.replace(R.id.frame_layout,fragmentTabMap.get(nowFrag));
         }
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

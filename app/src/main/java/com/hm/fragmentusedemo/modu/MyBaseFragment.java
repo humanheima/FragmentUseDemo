@@ -2,20 +2,20 @@ package com.hm.fragmentusedemo.modu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hm.fragmentusedemo.viewpager.SimpleBaseFragment;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by dumingwei on 2017/6/28.
  */
-public abstract class MyBaseFragment extends Fragment {
+public abstract class MyBaseFragment extends SimpleBaseFragment {
 
-    protected String TAG = getClass().getSimpleName();
     protected View rootView;
 
     @Nullable

@@ -70,7 +70,7 @@ public class ViewPagerPagerAdapterActivity extends AppCompatActivity implements 
         list.add(new Fragment2());
         list.add(new Fragment3());
         list.add(new Fragment4());
-        btnRemove = (Button) findViewById(R.id.btnRemove);
+        btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setOnClickListener(this);
         messageLayout.setOnClickListener(this);
         contactsLayout.setOnClickListener(this);
@@ -78,8 +78,9 @@ public class ViewPagerPagerAdapterActivity extends AppCompatActivity implements 
         settingLayout.setOnClickListener(this);
 
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), list);
-        viewPager = (ViewPager) this.findViewById(R.id.pager);
+        viewPager = this.findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
+        //viewPager.setOffscreenPageLimit(4);
 
         //给ViewPager添加页面切换监听事件
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
