@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion = rootProject.ext.compileSdkVersion
-    buildToolsVersion = rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.hm.fragmentusedemo"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -20,9 +19,9 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-v4:$rootProject.ext.supprotVersion"
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile('com.alibaba.android:ultraviewpager:1.0.3@aar') {
+    implementation 'com.android.support:support-v4:27.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation('com.alibaba.android:ultraviewpager:1.0.3@aar') {
         transitive = true
     }
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supprotVersion"

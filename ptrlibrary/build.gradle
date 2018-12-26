@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion = rootProject.ext.compileSdkVersion
-    buildToolsVersion = rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -18,5 +17,5 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:recyclerview-v7:$rootProject.ext.supprotVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supprotVersion"
 }
