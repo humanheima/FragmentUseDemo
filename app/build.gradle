@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion = rootProject.ext.compileSdkVersion
+    buildToolsVersion = '28.0.3'
     defaultConfig {
         applicationId "com.hm.fragmentusedemo"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -19,7 +22,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:27.0.2'
+    implementation "com.android.support:support-v4:$rootProject.ext.supprotVersion"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation('com.alibaba.android:ultraviewpager:1.0.3@aar') {
         transitive = true
@@ -40,4 +43,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'
     implementation 'com.google.code.gson:gson:2.7'
     implementation project(':ptrlibrary')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

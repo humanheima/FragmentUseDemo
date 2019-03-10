@@ -33,3 +33,86 @@ onDestroy(),onDetach()方法不会调用。
 
 http://blog.csdn.net/leilifengxingmw/article/details/79069504
 
+## Fragment的startActivity
+```java
+public void startActivity(Intent intent) {
+        startActivity(intent, null);
+}
+```
+```java
+public void startActivity(Intent intent, @Nullable Bundle options) {
+        if (mHost == null) {
+            throw new IllegalStateException("Fragment " + this + " not attached to Activity");
+        }
+        mHost.onStartActivityFromFragment(this /*fragment*/, intent, -1, options);
+    }
+```
+FragmentActivity.HostCallbacks的onStartActivityFromFragment方法
+```java
+@Override
+        public void onStartActivityFromFragment(
+                Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+            FragmentActivity.this.startActivityFromFragment(fragment, intent, requestCode, options);
+        }
+```
+FragmentActivity的startActivityFromFragment方法
+```java
+public void startActivityFromFragment(Fragment fragment, Intent intent,
+            int requestCode, @Nullable Bundle options) {
+        mStartedActivityFromFragment = true;
+        try {
+            if (requestCode == -1) {
+                //不要求返回结果
+                ActivityCompat.startActivityForResult(this, intent, -1, options);
+                return;
+            }
+            checkForValidRequestCode(requestCode);
+            int requestIndex = allocateRequestIndex(fragment);
+            ActivityCompat.startActivityForResult(
+                    this, intent, ((requestIndex + 1) << 16) + (requestCode & 0xffff), options);
+        } finally {
+            mStartedActivityFromFragment = false;
+        }
+    }
+```
+ActivityCompat的startActivityForResult方法
+```java
+public static void startActivityForResult(@NonNull Activity activity, @NonNull Intent intent,
+            int requestCode, @Nullable Bundle options) {
+        if (Build.VERSION.SDK_INT >= 16) {
+            activity.startActivityForResult(intent, requestCode, options);
+        } else {
+            activity.startActivityForResult(intent, requestCode);
+        }
+    }
+
+```
+Activity的startActivityForResult方法精简版
+```java
+ public void startActivityForResult(@RequiresPermission Intent intent, int requestCode,
+            @Nullable Bundle options) {
+        if (mParent == null) {
+            //调用Instrumentation的execStartActivity方法
+            Instrumentation.ActivityResult ar =
+                mInstrumentation.execStartActivity(
+                    this, mMainThread.getApplicationThread(), mToken, this,
+                    intent, requestCode, options);
+            
+        }
+            
+    }
+```
+在Activity中调用startActivity方法，最终是调用ContextImpl的startActivity方法
+
+ContextImpl的startActivity方法精简版
+
+```java
+@Override
+    public void startActivity(Intent intent, Bundle options) {
+        warnIfCallingFromSystemProcess();
+        //最后也是调用Instrumentation的execStartActivity方法
+        mMainThread.getInstrumentation().execStartActivity(
+                getOuterContext(), mMainThread.getApplicationThread(), null,
+                (Activity) null, intent, -1, options);
+    }
+```

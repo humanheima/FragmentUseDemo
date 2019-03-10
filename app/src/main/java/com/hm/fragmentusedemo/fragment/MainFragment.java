@@ -110,6 +110,7 @@ public class MainFragment extends BaseFragment {
         viewPager.setOffscreenPageLimit(4);
         //和tabLayout关联
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     @Override
