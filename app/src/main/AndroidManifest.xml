@@ -14,19 +14,23 @@
             android:name=".modu.ModuActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">
+
+
+        </activity>
+        <activity android:name=".activity.ViewPagerWithFragmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ViewPagerWithFragmentActivity" />
         <activity android:name=".simple.SimpleActivity" />
         <activity android:name=".simple.AnotherActivity" />
         <activity
             android:name=".viewpager.ViewPagerPagerAdapterActivity"
+            android:screenOrientation="portrait">
 
-            android:screenOrientation="portrait"></activity>
+        </activity>
         <activity android:name=".simple.DemoActivity" />
         <activity android:name=".lazyload.LazyLoadActivity" />
         <activity android:name=".activity.StartActivity"></activity>

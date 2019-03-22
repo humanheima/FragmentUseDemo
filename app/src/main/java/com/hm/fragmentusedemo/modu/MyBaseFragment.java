@@ -22,12 +22,16 @@ public abstract class MyBaseFragment extends SimpleBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.e(TAG, "onCreateView: ");
         if (null == rootView) {
-            Log.e(TAG, "onCreateView: ");
+            Log.e(TAG, "onCreateView:==null ");
             rootView = LayoutInflater.from(container.getContext()).inflate(bindLayout(), null);
             ButterKnife.bind(this, rootView);
             initData();
             bindEvent();
+        } else {
+            Log.e(TAG, "onCreateView:!=null ");
+
         }
         return rootView;
     }

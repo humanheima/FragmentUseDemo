@@ -27,7 +27,6 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends BaseFragment {
 
-    private String tag = getClass().getSimpleName();
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
@@ -41,6 +40,8 @@ public class MainFragment extends BaseFragment {
     private BaseFragment learningFragment;
     private BaseFragment bussinessFragment;
     private BaseFragment ideaFragment;
+
+    private static final String tag = "MainFragment";
 
     public MainFragment() {
         // Required empty public constructor
@@ -73,12 +74,13 @@ public class MainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(tag, "onCreateView: ");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        fragmentList = new ArrayList<>();
-        initTabLayout();
-        initAdapter();
+        //fragmentList = new ArrayList<>();
+        //initTabLayout();
+        //initAdapter();
         return view;
     }
 

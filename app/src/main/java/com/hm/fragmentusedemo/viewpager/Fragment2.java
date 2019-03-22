@@ -35,7 +35,7 @@ public class Fragment2 extends SimpleBaseFragment {
                 }
             });
         } else {
-            Log.e(TAG, "onCreateView: rootView!=null");
+            Log.e(TAG, "onCreateView: rootView==null");
         }
 
         return rootView;
