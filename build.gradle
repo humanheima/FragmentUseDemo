@@ -17,7 +17,7 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
 }
@@ -30,6 +30,6 @@ ext {
     supprotVersion = "27.0.2"
     compileSdkVersion = 27
     buildToolsVersion =  '28.0.3'
-    minSdkVersion = 15
+    minSdkVersion = 17
     targetSdkVersion = 27
 }
