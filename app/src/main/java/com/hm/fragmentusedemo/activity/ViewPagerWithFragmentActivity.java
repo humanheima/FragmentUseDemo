@@ -113,6 +113,25 @@ public class ViewPagerWithFragmentActivity extends AppCompatActivity {
         addOrShowFragment(getSupportFragmentManager().beginTransaction(), mainFragment);
     }
 
+    private void testReplace() {
+        MainFragment fragment = new MainFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment).commit();
+
+        fragmentTransaction.remove(fragment);
+
+        fragmentTransaction.add(R.id.frame_layout, fragment);
+
+
+        addOrShowFragment(fragmentTransaction, mainFragment);
+    }
+
+    private void testAdd() {
+        MainFragment fragment = new MainFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frame_layout, fragment).commit();
+    }
+
     private void clickMusicLayout() {
         if (musicFragment == null) {
             musicFragment = new MusicFragment();

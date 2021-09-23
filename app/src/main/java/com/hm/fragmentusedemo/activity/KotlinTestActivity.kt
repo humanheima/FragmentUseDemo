@@ -1,6 +1,7 @@
 package com.hm.fragmentusedemo.activity
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -26,6 +27,10 @@ class KotlinTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_kotlin_test)
 
         startActivity<ViewPagerWithFragmentActivity>()
+    }
+
+    override fun onAttachFragment(fragment: Fragment?) {
+        super.onAttachFragment(fragment)
     }
 
 
