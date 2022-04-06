@@ -78,9 +78,9 @@ public class MainFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        //fragmentList = new ArrayList<>();
-        //initTabLayout();
-        //initAdapter();
+        fragmentList = new ArrayList<>();
+        initTabLayout();
+        initAdapter();
         return view;
     }
 
